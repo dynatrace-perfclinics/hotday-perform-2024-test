@@ -14,4 +14,4 @@ data:
   # Enables application status badge feature
   statusbadge.enabled: "true"
   context: |
-    argocdUrl: "https://argo.dtu-test-s17-b6d9ac.dynatrace.training"  
+    argocdUrl: "https://argo.dtu-test-s17-45935c.dynatrace.training"  
