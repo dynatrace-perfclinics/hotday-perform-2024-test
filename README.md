@@ -87,6 +87,23 @@ git clone $FORKED_TEMPLATE_REPO
 cd $FORKED_REPO_NAME
 ```
 
+Also you have to set those env-variables for the domains
+```
+export DT_TENANT="abc12345"
+export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
+export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
+export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
+```
+
+For the next steps we are going to create a couple of Tokens. Here the overview of what we are creating
+```
+DT_INGEST_TOKEN=token; history -d $(history 1)
+DT_OP_TOKEN=token; history -d $(history 1)
+DT_ALL_INGEST_TOKEN=token; history -d $(history 1)
+DT_MONACO_TOKEN=token; history -d $(history 1)
+DT_NOTIFICATION_TOKEN=token; history -d $(history 1)
+```
+
 ## Step 3: Create all Dynatrace Configuration and Secrets
 
 We have a couple of Dynatrace integrations that require tokens and OAuth credentials stored in k8s secrets. Lets create them one by one!
@@ -233,6 +250,7 @@ ArgoCD is our central GitOps Operator that deploys our Core Platform Components 
 
 ```
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd -f $FORKED_TEMPLATE_REPO\manifests\platform\argoconfig\argocd-cmd-params-cm.yml
 ```
 
 ## (optional) Login through Port-Forward: Access ArgoCD before creating the Ingress
