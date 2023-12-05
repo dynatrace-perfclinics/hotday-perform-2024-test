@@ -52,8 +52,8 @@ export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
 
 Execute this as-is:
 ```
-export DT_TENANT_LIVE="https://$DT_TENANT.live.dynatrace.com"
-export DT_TENANT_APPS="https://$DT_TENANT.apps.dynatrace.com"
+export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
+export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
 find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
 find . -type f -not -path '*/\.*' -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
@@ -295,9 +295,14 @@ export GL_PAT="YOURGLPAT"
 Now run the following:
 ```
 # You should already have the next three set from our first step!
-# export FORKED_GITHUB_ORGNAME=dynatrace-perfclinics
-# export FORKED_REPO_NAME=hotday-perform-2024-test
-# export FORKED_TEMPLATE_REPO="https://github.com/$FORKED_GITHUB_ORGNAME/$FORKED_REPO_NAME"
+export FORKED_GITHUB_ORGNAME=dynatrace-perfclinics
+export FORKED_REPO_NAME=hotday-perform-2024-test
+export FORKED_TEMPLATE_REPO="https://github.com/$FORKED_GITHUB_ORGNAME/$FORKED_REPO_NAME"
+export DT_TENANT="abc12345"
+export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
+export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
+export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
+
 
 export GIT_USER="root"
 export GIT_PWD="$GL_PAT"
