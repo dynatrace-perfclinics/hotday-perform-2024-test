@@ -13,7 +13,7 @@ spec:
       cloneProtocol: https
       gitlab:
         group: "group1"
-        api: "https://gitlab.BASE_DOMAIN_PLACEHOLDER/"
+        api: "https://gitlab.dtu-test-s17-b6d9ac.dynatrace.training/"
   template:
     metadata:
       name: "{{ repository }}"
