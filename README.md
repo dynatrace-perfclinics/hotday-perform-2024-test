@@ -84,6 +84,7 @@ export FORKED_TEMPLATE_REPO="https://github.com/$FORKED_GITHUB_ORGNAME/$FORKED_R
 
 # Clone the template files locally
 git clone $FORKED_TEMPLATE_REPO
+cd $FORKED_REPO_NAME
 ```
 
 ## Step 3: Create all Dynatrace Configuration and Secrets
@@ -164,7 +165,7 @@ Create the token:
 ```
 DT_MONACO_TOKEN=dt0c01.******.*************; history -d $(history 1)
 kubectl create namespace monaco
-kubectl -n argocd create secret generic monaco-secret --from-literal=monacoToken=$DT_MONACO_TOKEN
+kubectl -n monaco create secret generic monaco-secret --from-literal=monacoToken=$DT_MONACO_TOKEN
 ```
 
 ### 3.4 Create an ArgoCD Notifications Token
@@ -231,7 +232,6 @@ kubectl -n opentelemetry create secret generic dt-bizevent-oauth-details --from-
 ArgoCD is our central GitOps Operator that deploys our Core Platform Components (taken from this repository) as well as will deploy custom apps that attendees will create during the class room hands-on tutorials!
 
 ```
-kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
