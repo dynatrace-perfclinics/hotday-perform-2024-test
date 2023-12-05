@@ -72,6 +72,20 @@ Go back out to the root directory of your cloned git repo
 cd ..
 ```
 
+## Step 1&2 (if repo was already prepared)
+
+If the github repo was already prepared by setting all placeholders as described in Step 1 & 2 then you only need to clone the repo locally like this:
+
+```
+export FORKED_GITHUB_ORGNAME=dynatrace-perfclinics
+export FORKED_REPO_NAME=hotday-perform-2024-test 
+export FORKED_REPO_GITOPS_CLASSROOMID=gitops_dryrun
+export FORKED_TEMPLATE_REPO="https://github.com/$FORKED_GITHUB_ORGNAME/$FORKED_REPO_NAME"
+
+# Clone the template files locally
+git clone $FORKED_TEMPLATE_REPO
+```
+
 ## Step 3: Create all Dynatrace Configuration and Secrets
 
 We have a couple of Dynatrace integrations that require tokens and OAuth credentials stored in k8s secrets. Lets create them one by one!
