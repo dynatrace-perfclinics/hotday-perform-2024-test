@@ -17,18 +17,20 @@ Once you have your own version of this repository continue with the next steps!
 Some of the files we just cloned are pointing to other files in our GitHub repo. To point to our just cloned repository we need to do this
 
 ```
-export FORKED_GITHUB_ORGNAME=YOURORG    # e.g: dtu-engineering
-export FORKED_REPO_NAME=YOURREPONAME    # e.g: classroom1
+export FORKED_GITHUB_ORGNAME=dynatrace-perfclinics
+export FORKED_REPO_NAME=hotday-perform-2024-test 
+export FORKED_REPO_GITOPS_CLASSROOMID=gitops_dryrun
 export FORKED_TEMPLATE_REPO="https://github.com/$FORKED_GITHUB_ORGNAME/$FORKED_REPO_NAME"
 
 # Clone the template files locally
 git clone $FORKED_TEMPLATE_REPO
-cd $FORKED_REPO_NAME
+cd $FORKED_REPO_NAME/$FORKED_REPO_GITOPS_CLASSROOMID
 
 # Now lets replace the placeholders
 find . -type f -not -path '*/\.*' -exec sed -i "s#FORKED_GITHUB_ORGNAME_PLACEHOLDER#$FORKED_GITHUB_ORGNAME#g" {} +
 find . -type f -not -path '*/\.*' -exec sed -i "s#FORKED_REPO_NAME_PLACEHOLDER#$FORKED_REPO_NAME#g" {} +
 find . -type f -not -path '*/\.*' -exec sed -i "s#FORKED_TEMPLATE_REPO_PLACEHOLDER#$FORKED_TEMPLATE_REPO#g" {} +
+find . -type f -not -path '*/\.*' -exec sed -i "s#FORKED_REPO_GITOPS_CLASSROOMID_PLACEHOLDER#$FORKED_REPO_GITOPS_CLASSROOMID#g" {} +
 
 # Now lets commit those GitHub Urls
 git add -A
@@ -63,6 +65,11 @@ Commit all changes:
 git add -A
 git commit -m "Update URLs"
 git push
+```
+
+Go back out to the root directory of your cloned git repo
+```
+cd ..
 ```
 
 ## Step 3: Create all Dynatrace Configuration and Secrets
@@ -243,7 +250,7 @@ The UI should show "No Applications".
 Now its time to tell ArgoCD to install all our platform components. For that we have a so called AppOfApps prepared that tells ArgoCD from which folders in our GitHub repository to fetch Backstage, GitLab, OpenTelemetry, ...
 
 ```
-kubectl apply -f gitops/platform.yml
+kubectl apply -f $FORKED_REPO_GITOPS_CLASSROOMID/platform.yml
 ```
 
 If you do port-forward with Argo: Wait until the "platform" application is green before proceeding.
@@ -288,8 +295,8 @@ export GL_PAT="YOURGLPAT"
 Now run the following:
 ```
 # You should already have the next three set from our first step!
-# export FORKED_GITHUB_ORGNAME=YOURORG    # e.g: dtu-engineering
-# export FORKED_REPO_NAME=YOURREPONAME    # e.g: classroom1
+# export FORKED_GITHUB_ORGNAME=dynatrace-perfclinics
+# export FORKED_REPO_NAME=hotday-perform-2024-test
 # export FORKED_TEMPLATE_REPO="https://github.com/$FORKED_GITHUB_ORGNAME/$FORKED_REPO_NAME"
 
 export GIT_USER="root"
@@ -311,17 +318,29 @@ cd
 git clone https://gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME.git
 # Clone new empty repo for app templates
 git clone https://gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME.git
+
+
 # Copy files from template for backstage templates repo
+# Then replace the placeholders
 # Then commit and push files
 cp -R $FORKED_TEMPLATE_REPO/backstage-templates ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
 cd ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
+find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
+find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
+find . -type f -not -path '*/\.*' -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
+
 git add -A
 git commit -m "initial commit"
 git push https://$GIT_USER:$GIT_PWD@gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME.git
-# Copy files from template
+
+# Copy files from app template, then replace the placeholders, then commit
 cd
 cp -R $FORKED_TEMPLATE_REPO/apptemplates ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
 cd ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
+find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
+find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
+find . -type f -not -path '*/\.*' -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
+
 git add -A
 git commit -m "initial commit"
 git push https://$GIT_USER:$GIT_PWD@gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME.git
@@ -339,7 +358,7 @@ curl -X POST -d '{ "name": "group1", "path": "group1", "visibility": "public" }'
 
 When Argo is installed and all the platform apps are installed and happily green, configure a secret for Backstage:
 
-This is from the 'alice' user (see [argocd-cm.yml](gitops/manifests/platform/argoconfig/argocd-cm.yml))
+This is from the 'alice' user (see [argocd-cm.yml]($FORKED_REPO_GITOPS_CLASSROOMID/manifests/platform/argoconfig/argocd-cm.yml))
 
 ```
 # Set the default context to the argocd namespace so 'argocd' CLI works
