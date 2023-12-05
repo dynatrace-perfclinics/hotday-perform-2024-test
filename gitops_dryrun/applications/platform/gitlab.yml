@@ -9,9 +9,9 @@ metadata:
   namespace: argocd
 spec:
   sources:
-    - repoURL: 'FORKED_TEMPLATE_REPO_PLACEHOLDER.git'
+    - repoURL: 'https://github.com/dynatrace-perfclinics/hotday-perform-2024-test.git'
       targetRevision: main
-      path: "FORKED_REPO_GITOPS_CLASSROOMID_PLACEHOLDER/manifests/platform/gitlab"
+      path: "gitops_dryrun/manifests/platform/gitlab"
     - repoURL: 'https://charts.gitlab.io'
       targetRevision: 7.5.2
       chart: gitlab
