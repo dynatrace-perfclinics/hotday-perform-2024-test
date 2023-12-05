@@ -250,7 +250,6 @@ ArgoCD is our central GitOps Operator that deploys our Core Platform Components 
 
 ```
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl apply -n argocd -f $FORKED_TEMPLATE_REPO\manifests\platform\argoconfig\argocd-cmd-params-cm.yml
 ```
 
 ## (optional) Login through Port-Forward: Access ArgoCD before creating the Ingress
