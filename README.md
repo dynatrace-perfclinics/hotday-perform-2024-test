@@ -2,21 +2,27 @@
 
 ** WORK IN PROGRESS ** - getting this ready for Dynatrace Perform 2024 HOT (Hands On Training) Days
 
-## Step 1: FORK or USE CASE TEMPLATE to create a new training class repository!
+## Step 0: Create a new Repository based on the Tutorial Repo
 
-This repositor contains K8s CRDs that defines the core platform for each training class. Its our "Core Platform GitOps Repo" that contains ArgoCD Applications allowing ArgoCD to deploy Backstage, GitLab, OpenTelemetry, Keptn, Dynatrace and more ...
+The original repository is https://github.com/dynatrace-perfclinics/platform-engineering-tutorial!
 
-Every training class environment therefore needs its own unique copy of this repo as it will also include the unique domain name definitions.
+If you plan to run a workshop then we suggest to create your own fork or copy (by using this as a template) repository and then replace all the XX_PLACEHOLDERS in your reposotiry to point to your Dynatrace Tenants and your BASEDOMAIN (E.g: *.classroom.yourdomain.com)
 
-Therefore its necessary to either *FORK* this repository or *USE AS TEMPLATE* to create a new repository, e.g: https://github.com/yourorg/reponame_class1, https://github.com/yourorg/reponame_class2 ...
+If you intend to run multiple class rooms - like we did at Perform 2024 HOTDAYS - then the best is to create multiple copies of the `gitops` folder, e.g: `gitops_class1`, `gitops_class2` ... and then replace all the PLACEHOLDERS for each class room. This allows you to have a single "Core Platform GitOps Repo" containing all CRDs for your individual Platforms
 
-Once you have your own version of this repository continue with the next steps!
-
-## Step 2: Replace GitHub Repo references in Platform CRDs
+### Step 0.1: Replace GitHub Repo references in Platform CRDs
 
 Some of the files we just cloned are pointing to other files in our GitHub repo. To point to our just cloned repository we need to do this
 
 ```
+# These are the details of your Dynatrace Tenant, BASE-Domain & GEOLOCATION for Synthetics (they differ between prod and sprint tenants!)
+export DT_TENANT="abc12345"
+export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
+export DT_GEOLOCATION=GEOLOCATION_XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
+export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"           # BEAWARE OF .sprint.dynatrace.labs vs .dynatrace.com
+export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
+
+# These are the details of your cloned/forked/copied GitHub Repo
 export FORKED_GITHUB_ORGNAME=dynatrace-perfclinics
 export FORKED_REPO_NAME=hotday-perform-2024-test 
 export FORKED_REPO_GITOPS_CLASSROOMID=gitops_dryrun
@@ -27,43 +33,18 @@ git clone $FORKED_TEMPLATE_REPO
 cd $FORKED_REPO_NAME/$FORKED_REPO_GITOPS_CLASSROOMID
 
 # Now lets replace the placeholders
-find . -type f -not -path '*/\.*' -exec sed -i "s#FORKED_GITHUB_ORGNAME_PLACEHOLDER#$FORKED_GITHUB_ORGNAME#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#FORKED_REPO_NAME_PLACEHOLDER#$FORKED_REPO_NAME#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#FORKED_TEMPLATE_REPO_PLACEHOLDER#$FORKED_TEMPLATE_REPO#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#FORKED_REPO_GITOPS_CLASSROOMID_PLACEHOLDER#$FORKED_REPO_GITOPS_CLASSROOMID#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#FORKED_GITHUB_ORGNAME_PLACEHOLDER#$FORKED_GITHUB_ORGNAME#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#FORKED_REPO_NAME_PLACEHOLDER#$FORKED_REPO_NAME#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#FORKED_TEMPLATE_REPO_PLACEHOLDER#$FORKED_TEMPLATE_REPO#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#FORKED_REPO_GITOPS_CLASSROOMID_PLACEHOLDER#$FORKED_REPO_GITOPS_CLASSROOMID#g" {} +
 
 # Now lets commit those GitHub Urls
 git add -A
 git commit -m "Update GitHub Template Repo URLs"
-git push
-```
-
-## Step 2: Preparations: Domain Names, Tokens ...
-
-The ArgoCD platform app configuration currently points to the parent repository. Change this now.
-
-:warning: You need to change these values and do not use trailing slashes :warning:
-
-Configure these two values:
-```
-export DT_TENANT="abc12345"
-export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
-```
-
-Execute this as-is:
-```
-export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
-export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
-find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
-```
-
-Commit all changes:
-
-```
-git add -A
-git commit -m "Update URLs"
 git push
 ```
 
@@ -72,7 +53,7 @@ Go back out to the root directory of your cloned git repo
 cd ..
 ```
 
-## Step 1&2 (if repo was already prepared)
+## Step 1 (assuming you have a repo based on Step 0): Preparing Tokens and Env Variables
 
 If the github repo was already prepared by setting all placeholders as described in Step 1 & 2 then you only need to clone the repo locally like this:
 
@@ -82,7 +63,7 @@ export FORKED_REPO_NAME=hotday-perform-2024-test
 export FORKED_REPO_GITOPS_CLASSROOMID=gitops_dryrun
 export FORKED_TEMPLATE_REPO="https://github.com/$FORKED_GITHUB_ORGNAME/$FORKED_REPO_NAME"
 
-# Clone the template files locally
+# Clone the template files locally (if you havent done so yet)
 git clone $FORKED_TEMPLATE_REPO
 cd $FORKED_REPO_NAME
 ```
@@ -93,6 +74,7 @@ export DT_TENANT="abc12345"
 export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
 export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
 export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
+export DT_GEOLOCATION=GEOLOCATION_XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
 ```
 
 For the next steps we are going to create a couple of Tokens. Here the overview of what we are creating
@@ -104,11 +86,11 @@ DT_MONACO_TOKEN=token; history -d $(history 1)
 DT_NOTIFICATION_TOKEN=token; history -d $(history 1)
 ```
 
-## Step 3: Create all Dynatrace Configuration and Secrets
+## Step 2: Create all Dynatrace Configuration and Secrets
 
 We have a couple of Dynatrace integrations that require tokens and OAuth credentials stored in k8s secrets. Lets create them one by one!
 
-### 3.1 Create Dynatrace Secret to Activate the OneAgent
+### 2.1 Create Dynatrace Secret to Activate the OneAgent
 
 The OneAgent operator will be deployed onto the cluster, but it needs to know where to send data. It needs your DT tenant details.
 
@@ -138,7 +120,7 @@ kubectl create namespace dynatrace
 kubectl -n dynatrace create secret generic hot-day-platform-engineering --from-literal=apiToken=$DT_OP_TOKEN --from-literal=dataIngestToken=$DT_INGEST_TOKEN
 ```
 
-### 3.2 Create Dynatrace OpenTelemetry Ingest Token
+### 2.2 Create Dynatrace OpenTelemetry Ingest Token
 
 An OpenTelemetry collector is deployed but does not have the DT endpoint details. Using the same method as above, create those details now.
 
@@ -165,7 +147,7 @@ kubectl create namespace opentelemetry
 kubectl -n opentelemetry create secret generic dt-details --from-literal=DT_URL=$DT_TENANT_LIVE --from-literal=DT_OTEL_ALL_INGEST_TOKEN=$DT_ALL_INGEST_TOKEN
 ```
 
-### 3.3 Create a Configuration as Code (aka Monaco) Token
+### 2.3 Create a Configuration as Code (aka Monaco) Token
 
 The token depends on the configuration you wish to read / write (see the [monaco](monaco/)) folder monaco configurations.
 
@@ -185,7 +167,7 @@ kubectl create namespace monaco
 kubectl -n monaco create secret generic monaco-secret --from-literal=monacoToken=$DT_MONACO_TOKEN
 ```
 
-### 3.4 Create an ArgoCD Notifications Token
+### 2.4 Create an ArgoCD Notifications Token
 
 We are using ArgoCD Notifications to send Events to Dynatrace using the Events API V2. For that we need to a token that can send events to Dynatrace
 
@@ -195,7 +177,7 @@ kubectl create namespace argocd
 kubectl -n monaco create secret generic argocd-notifications-secret --from-literal=dynatrace-url=$DT_TENANT_LIVE --from-literal=dynatrace-token=$DT_NOTIFICATION_TOKEN
 ```
 
-### 3.5 Create Business Events Secrets
+### 2.5 Create Business Events Secrets
 
 We will need an OAuth client to send BizEvents.
 
@@ -244,7 +226,7 @@ kubectl -n opentelemetry create secret generic dt-bizevent-oauth-details --from-
 ```
 
 
-## Step 4: Install and configure ArgoCD on Cluster
+## Step 3: Install and configure ArgoCD on Cluster
 
 ArgoCD is our central GitOps Operator that deploys our Core Platform Components (taken from this repository) as well as will deploy custom apps that attendees will create during the class room hands-on tutorials!
 
@@ -252,29 +234,31 @@ ArgoCD is our central GitOps Operator that deploys our Core Platform Components 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-## (optional) Login through Port-Forward: Access ArgoCD before creating the Ingress
+In order for Argo to be accessible via the Ingress we need to do two things: apply a config map to tell it about allow unsecure traffic behind the ingress - and - the ingress itself.
 
 ```
-kubectl -n argocd port-forward svc/argocd-server 8080:80
+kubectl apply -n argocd -f $FORKED_REPO_GITOPS_CLASSROOMID/manifests/platform/argoconfig/argo.ingress.yaml
+kubectl apply -n argocd -f $FORKED_REPO_GITOPS_CLASSROOMID/manifests/platform/argoconfig/argocd-cmd-params-cm.yaml
 ```
 
-This command will appear to hang. That is OK. Leave it running.
+Last but not least - we need to restart the argo-server pod to pickup the new ConfigMap
+```
+kubectl -n argocd scale deploy -l app.kubernetes.io/name=argocd-server --replicas=0
+kubectl -n argocd scale deploy -l app.kubernetes.io/name=argocd-server --replicas=1
+```
 
-Open a new terminal for any new commands you need to run.
+### Step 4.1 - Login to ArgoCD 
 
-Switch back to the terminal window and print out the argocd password:
-
+We should now be able to login to ArgoCD with the following details:
 ```
 ARGOCDPWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-echo $ARGOCDPWD
+echo "User: admin"
+echo "Password: $ARGOCDPWD"
+echo "URL: https://argo.$BASE_DOMAIN"
 ```
 
-Username: `admin`
-Password: `see above`
+The ArgoUI should say "No Applications"
 
-Go to `http://localhost:8080` and log in to Argo.
-
-The UI should show "No Applications".
 
 ## Step 5: Apply Platform Apps: GitLab, Dynatrace, Backstage, ...
 
@@ -361,9 +345,10 @@ git clone https://gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_APP_TEMPLATES_TEMPLATE
 # Then commit and push files
 cp -R $FORKED_TEMPLATE_REPO/backstage-templates ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
 cd ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
-find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
 
 git add -A
 git commit -m "initial commit"
@@ -373,9 +358,10 @@ git push https://$GIT_USER:$GIT_PWD@gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_BACK
 cd
 cp -R $FORKED_TEMPLATE_REPO/apptemplates ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
 cd ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
-find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
-find . -type f -not -path '*/\.*' -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
 
 git add -A
 git commit -m "initial commit"

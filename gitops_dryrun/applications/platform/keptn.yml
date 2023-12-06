@@ -2,21 +2,28 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-wave: "5"
   labels:
     dt.owner: "platform_team"
-  name: kubeaudit
+  name: keptn
   namespace: argocd
 spec:
   sources:
-    - repoURL: 'FORKED_TEMPLATE_REPO_PLACEHOLDER.git'
+    - repoURL: 'https://charts.lifecycle.keptn.sh'
+      targetRevision: 0.2.6
+      chart: klt
+      # helm:
+      #   values: |
+    - repoURL: 'https://github.com/dynatrace-perfclinics/hotday-perform-2024-test.git'
       targetRevision: main
-      path: "FORKED_REPO_GITOPS_CLASSROOMID_PLACEHOLDER/manifests/platform/kubeaudit"
+      path: "gitops_dryrun/manifests/platform/keptn"
   destination:
-    namespace: kubeaudit
+    namespace: keptn
     server: 'https://kubernetes.default.svc'
   project: default
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true  
     automated:
       prune: true
       selfHeal: true
