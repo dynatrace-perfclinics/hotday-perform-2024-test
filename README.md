@@ -351,7 +351,7 @@ git clone https://gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_APP_TEMPLATES_TEMPLATE
 # Copy files from template for backstage templates repo
 # Then replace the placeholders
 # Then commit and push files
-cp -R $FORKED_TEMPLATE_REPO/backstage-templates ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
+cp -R $FORKED_REPO_NAME/backstagetemplates ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
 cd ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
@@ -364,7 +364,7 @@ git push https://$GIT_USER:$GIT_PWD@gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_BACK
 
 # Copy files from app template, then replace the placeholders, then commit
 cd
-cp -R $FORKED_TEMPLATE_REPO/apptemplates ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
+cp -R $FORKED_REPO_NAME/apptemplates ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
 cd ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
