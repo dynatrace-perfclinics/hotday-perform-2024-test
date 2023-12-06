@@ -77,7 +77,7 @@ export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
 export DT_GEOLOCATION=GEOLOCATION_XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
 ```
 
-For the next steps we are going to create a couple of Tokens. Here the overview of what we are creating
+In Step 2 we are going to create lots of tokens. IN case you already have them - here a quick overview to set them:
 ```
 DT_INGEST_TOKEN=token; history -d $(history 1)
 DT_OP_TOKEN=token; history -d $(history 1)
@@ -247,9 +247,9 @@ kubectl -n argocd scale deploy -l app.kubernetes.io/name=argocd-server --replica
 kubectl -n argocd scale deploy -l app.kubernetes.io/name=argocd-server --replicas=1
 ```
 
-### Step 4.1 - Login to ArgoCD 
+### Step 3.1 - Login to ArgoCD (if your K8s comes with an nginx ingress already)
 
-We should now be able to login to ArgoCD with the following details:
+We should now be able to login to ArgoCD with the following details assuming we have an Ingres Controller on EKS:
 ```
 ARGOCDPWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 echo "User: admin"
@@ -260,7 +260,7 @@ echo "URL: https://argo.$BASE_DOMAIN"
 The ArgoUI should say "No Applications"
 
 
-## Step 5: Apply Platform Apps: GitLab, Dynatrace, Backstage, ...
+## Step 4: Apply Platform Apps: GitLab, Dynatrace, Backstage, ...
 
 Now its time to tell ArgoCD to install all our platform components. For that we have a so called AppOfApps prepared that tells ArgoCD from which folders in our GitHub repository to fetch Backstage, GitLab, OpenTelemetry, ...
 
@@ -268,10 +268,18 @@ Now its time to tell ArgoCD to install all our platform components. For that we 
 kubectl apply -f $FORKED_REPO_GITOPS_CLASSROOMID/platform.yml
 ```
 
-If you do port-forward with Argo: Wait until the "platform" application is green before proceeding.
-If you dont: try to access https://argocd.$BASE_DOMAIN
+## Step 4.1: In case ArgoCD needs the Ingress Controller installed via the Platform we can now log in
 
-## Step 6: Configure GitLab
+We should now definitely be able to login as we also installed our own nginx-ingress controller
+
+```
+ARGOCDPWD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+echo "User: admin"
+echo "Password: $ARGOCDPWD"
+echo "URL: https://argo.$BASE_DOMAIN"
+```
+
+## Step 5: Configure GitLab
 
 GitLab is our git repository for all apps that the attendees will create and that will then be deployed by ArgoCD on the target k8s cluster.
 
@@ -283,7 +291,7 @@ echo "GitLab user: root"
 echo "GitLab pwd: $GITLABPWD"
 ```
 
-### 6.1 Set HTTPS Clone access
+### 5.1 Set HTTPS Clone access
 
 This step is needed because otherwise GitLab will return http:// address when Backstage creates new GitLab repositories which will then fail at a later stage.
 There is a setting we need to change in the GitLab UI
@@ -292,7 +300,7 @@ There is a setting we need to change in the GitLab UI
 2. Go to `https://gitlab.$BASEDOMAIN/admin/application_settings/general`
 3. Change the "Custom Git clone URL for HTTP(S)" from `http://gitlab.xxxxx` to `https://gitlab.$BASEDOMAIN`
 
-### 6.2 Create Personal Access Token (PAT)
+### 5.2 Create Personal Access Token (PAT)
 
 In order for tools like Backstage to interact with GitLab we need a PAT.
 
@@ -300,7 +308,7 @@ In order for tools like Backstage to interact with GitLab we need a PAT.
 2. Go to your user profile `https://gitlab.$BASEDOMAIN-/profile/personal_access_tokens`
 3. Create a PAT with `api, read_repository, write_repository`
 
-### 6.3 Initialize GitLab with template repositories
+### 5.3 Initialize GitLab with template repositories
 
 When you have a Personal Access Token (PAT), configure this:
 ```
@@ -376,7 +384,7 @@ curl -X POST -d '{ "name": "group1", "path": "group1", "visibility": "public" }'
 
 ```
 
-## Step 7: Configure Backstage
+## Step 6: Configure Backstage
 
 When Argo is installed and all the platform apps are installed and happily green, configure a secret for Backstage:
 
@@ -391,7 +399,7 @@ kubectl config set-context --current --namespace=default
 kubectl -n backstage create secret generic backstage-secrets --from-literal=GITLAB_TOKEN=$GL_PAT --from-literal=ARGOCD_TOKEN=$ARGOCD_TOKEN
 ```
 
-## Step 8: Recap
+## Step 7: Recap
 
 By now, you should see 12 applications in ArgoCD:
 
@@ -436,7 +444,7 @@ echo "----"
 echo "Dynatrace: $DT_TENANT_APPS"
 ```
 
-## Step 9: Usage
+## Step 8: Usage
 
 1. Visit backstage
 2. Create a new app based on the default template
