@@ -292,24 +292,15 @@ echo "GitLab user: root"
 echo "GitLab pwd: $GITLABPWD"
 ```
 
-### 5.1 Set HTTPS Clone access
-
-This step is needed because otherwise GitLab will return http:// address when Backstage creates new GitLab repositories which will then fail at a later stage.
-There is a setting we need to change in the GitLab UI
-
-1. Log into GitLab
-2. Go to `https://gitlab.$BASE_DOMAIN/admin/application_settings/general`
-3. Change the "Custom Git clone URL for HTTP(S)" from `http://gitlab.xxxxx` to `https://gitlab.$BASE_DOMAIN`
-
-### 5.2 Create Personal Access Token (PAT)
+### 5.1 Create Personal Access Token (PAT)
 
 In order for tools like Backstage to interact with GitLab we need a PAT.
 
 1. Log into Gitlab
 2. Go to your user profile `https://gitlab.$BASE_DOMAIN/-/profile/personal_access_tokens`
-3. Create a PAT with `api, read_api, read_repository, write_repository`
+3. Create a PAT with `api`, `read_repository` and `write_repository`
 
-### 5.3 Initialize GitLab with template repositories
+### 5.2 Initialize GitLab with template repositories
 
 When you have a Personal Access Token (PAT), configure this:
 ```
@@ -328,12 +319,15 @@ export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
 export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
 export DT_GEOLOCATION=GEOLOCATION-XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
 
-
 export GIT_USER="root"
 export GIT_PWD="$GL_PAT"
 export GIT_EMAIL="admin@example.com"
 export GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME="backstage-templates"
 export GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME="applications-template"
+
+# disable signups for security
+# and set clone URL to https:// not http:// for backstage
+curl --request PUT --header "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/application/settings?signup_enabled=false&custom_http_clone_url_root=https://gitlab.$BASE_DOMAIN/"
 
 # Create empty template repo for backstage templates
 curl -X POST -d '{"name": "'$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME'", "initialize_with_readme": true, "visibility": "public"}' -H "Content-Type: application/json" -H "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/projects"
