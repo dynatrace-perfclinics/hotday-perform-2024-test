@@ -7,3 +7,4 @@ configs:
   config:
     template: "auto-tag.json"
     name: "DTServer"
+    skip: true
