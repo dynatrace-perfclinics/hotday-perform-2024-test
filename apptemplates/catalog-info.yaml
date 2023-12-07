@@ -87,7 +87,7 @@ spec:
           title: "Include Dynatrace Configuration?"
           description: "Include level 1 (basic) Dynatrace Configuration as Code for this application?"
           type: boolean
-          default: false
+          default: true
         # includeComponentB:
         #   title: Include Component B
         #   description: Whether to include files for Component B
