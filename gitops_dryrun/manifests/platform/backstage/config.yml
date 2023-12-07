@@ -61,7 +61,7 @@ data:
       rules:
         - allow: [Component, Template, User, Group]
       import:
-        entityFilename: catalog-info.yaml
+        entityFilename: **/catalog-info.yaml
       locations: []
       providers:
       #   # GitHub discovery: https://backstage.io/docs/integrations/github/discovery/
@@ -82,7 +82,7 @@ data:
             # proxySecure: true
             branch: main
             skipForkedRepos: true
-            entityFilename: catalog-info.yaml
+            entityFilename: **/catalog-info.yaml
             schedule:
               frequency: { seconds: 10 }
               timeout: { minutes: 1 }
