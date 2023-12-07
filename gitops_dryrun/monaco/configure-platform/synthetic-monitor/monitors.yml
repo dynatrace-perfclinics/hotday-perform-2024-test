@@ -3,10 +3,10 @@ configs:
   config:
     name: "gitlab | platform | healthcheck"
     parameters:
-      baseUrl: "https://gitlab.BASE_DOMAIN_PLACEHOLDER"
+      baseUrl: "https://gitlab.dtu-test-s17-33fd25.dynatrace.training"
       frequencyMin: "1"
       enabled: "true"
-      geoLocation: "GEOLOCATION-PLACEHOLDER"
+      geoLocation: "SYNTHETIC_LOCATION-0000000000000034"
       teamIdentifier: "platform_team"
       tagKey: "owner"
       httpMethod: "GET"
@@ -18,10 +18,10 @@ configs:
   config:
     name: "backstage | platform | healthcheck"
     parameters:
-      baseUrl: "https://backstage.BASE_DOMAIN_PLACEHOLDER"
+      baseUrl: "https://backstage.dtu-test-s17-33fd25.dynatrace.training"
       frequencyMin: "1"
       enabled: "true"
-      geoLocation: "GEOLOCATION-PLACEHOLDER"
+      geoLocation: "SYNTHETIC_LOCATION-0000000000000034"
       teamIdentifier: "platform_team"
       tagKey: "owner"
       httpMethod: "GET"
@@ -33,10 +33,10 @@ configs:
   config:
     name: "argo | platform | healthcheck"
     parameters:
-      baseUrl: "https://argo.BASE_DOMAIN_PLACEHOLDER"
+      baseUrl: "https://argo.dtu-test-s17-33fd25.dynatrace.training"
       frequencyMin: "1"
       enabled: "true"
-      geoLocation: "GEOLOCATION-PLACEHOLDER"
+      geoLocation: "SYNTHETIC_LOCATION-0000000000000034"
       teamIdentifier: "platform_team"
       tagKey: "owner"
       httpMethod: "GET"
@@ -48,10 +48,10 @@ configs:
   config:
     name: "argo workflows | platform | healthcheck"
     parameters:
-      baseUrl: "https://workflows.BASE_DOMAIN_PLACEHOLDER"
+      baseUrl: "https://workflows.dtu-test-s17-33fd25.dynatrace.training"
       frequencyMin: "1"
       enabled: "true"
-      geoLocation: "GEOLOCATION-PLACEHOLDER"
+      geoLocation: "SYNTHETIC_LOCATION-0000000000000034"
       teamIdentifier: "platform_team"
       tagKey: "owner"
       httpMethod: "GET"
