@@ -165,6 +165,7 @@ Create the token:
 DT_MONACO_TOKEN=dt0c01.******.*************; history -d $(history 1)
 kubectl create namespace monaco
 kubectl -n monaco create secret generic monaco-secret --from-literal=monacoToken=$DT_MONACO_TOKEN
+kubectl -n dynatrace create secret generic monaco-secret --from-literal=monacoToken=$DT_MONACO_TOKEN
 ```
 
 ### 2.4 Create an ArgoCD Notifications Token
