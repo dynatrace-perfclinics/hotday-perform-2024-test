@@ -33,7 +33,7 @@ git clone $FORKED_TEMPLATE_REPO
 cd $FORKED_REPO_NAME/$FORKED_REPO_GITOPS_CLASSROOMID
 
 # Now lets replace the placeholders
-find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION-PLACEHOLDER#$DT_GEOLOCATION#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
@@ -359,7 +359,7 @@ cd ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
-find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION-PLACEHOLDER#$DT_GEOLOCATION#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
 
 git add -A
 git commit -m "initial commit"
@@ -372,7 +372,7 @@ cd ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
-find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION-PLACEHOLDER#$DT_GEOLOCATION#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
 
 git add -A
 git commit -m "initial commit"
