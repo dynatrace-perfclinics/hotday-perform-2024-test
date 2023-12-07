@@ -6,7 +6,7 @@
 
 The original repository is https://github.com/dynatrace-perfclinics/platform-engineering-tutorial!
 
-If you plan to run a workshop then we suggest to create your own fork or copy (by using this as a template) repository and then replace all the XX_PLACEHOLDERS in your reposotiry to point to your Dynatrace Tenants and your BASE_DOMAIN (E.g: *.classroom.yourdomain.com)
+If you plan to run a workshop then we suggest to create your own fork or copy (by using this as a template) repository and then replace all the XX_PLACEHOLDERS in your repository to point to your Dynatrace Tenants and your BASE_DOMAIN (E.g: *.classroom.yourdomain.com)
 
 If you intend to run multiple class rooms - like we did at Perform 2024 HOTDAYS - then the best is to create multiple copies of the `gitops` folder, e.g: `gitops_class1`, `gitops_class2` ... and then replace all the PLACEHOLDERS for each class room. This allows you to have a single "Core Platform GitOps Repo" containing all CRDs for your individual Platforms
 
@@ -325,9 +325,11 @@ export GIT_EMAIL="admin@example.com"
 export GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME="backstage-templates"
 export GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME="applications-template"
 
-# disable signups for security
-# and set clone URL to https:// not http:// for backstage
-curl --request PUT --header "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/application/settings?signup_enabled=false&custom_http_clone_url_root=https://gitlab.$BASE_DOMAIN/"
+# 1) disable signups for security
+# 2) set clone URL to https:// not http:// for backstage
+# 3) disable the warning about ssh keys (all repos are public anyway)
+# 4) disable "auto devops" pipeline and UI info box
+curl --request PUT --header "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/application/settings?signup_enabled=false&custom_http_clone_url_root=https://gitlab.$BASE_DOMAIN/&user_show_add_ssh_key_message=false&auto_devops_enabled=false"
 
 # Create empty template repo for backstage templates
 curl -X POST -d '{"name": "'$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME'", "initialize_with_readme": true, "visibility": "public"}' -H "Content-Type: application/json" -H "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/projects"
