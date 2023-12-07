@@ -18,7 +18,7 @@ Some of the files we just cloned are pointing to other files in our GitHub repo.
 # These are the details of your Dynatrace Tenant, BASE-Domain & GEOLOCATION for Synthetics (they differ between prod and sprint tenants!)
 export DT_TENANT="abc12345"
 export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
-export DT_GEOLOCATION=GEOLOCATION_XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
+export DT_GEOLOCATION=GEOLOCATION-XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
 export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"           # BEAWARE OF .sprint.dynatrace.labs vs .dynatrace.com
 export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
 
@@ -33,7 +33,7 @@ git clone $FORKED_TEMPLATE_REPO
 cd $FORKED_REPO_NAME/$FORKED_REPO_GITOPS_CLASSROOMID
 
 # Now lets replace the placeholders
-find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION-PLACEHOLDER#$DT_GEOLOCATION#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
@@ -74,7 +74,7 @@ export DT_TENANT="abc12345"
 export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
 export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
 export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
-export DT_GEOLOCATION=GEOLOCATION_XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
+export DT_GEOLOCATION=GEOLOCATION-XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
 ```
 
 In Step 2 we are going to create lots of tokens. IN case you already have them - here a quick overview to set them:
@@ -326,6 +326,7 @@ export DT_TENANT="abc12345"
 export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
 export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
 export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
+export DT_GEOLOCATION=GEOLOCATION-XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
 
 
 export GIT_USER="root"
@@ -357,7 +358,7 @@ cd ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
-find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION-PLACEHOLDER#$DT_GEOLOCATION#g" {} +
 
 git add -A
 git commit -m "initial commit"
@@ -370,7 +371,7 @@ cd ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#BASE_DOMAIN_PLACEHOLDER#$BASE_DOMAIN#g" {} +
-find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_GEOLOCATION_PLACEHOLDER#$DT_GEOLOCATION#g" {} +
+find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#GEOLOCATION-PLACEHOLDER#$DT_GEOLOCATION#g" {} +
 
 git add -A
 git commit -m "initial commit"
