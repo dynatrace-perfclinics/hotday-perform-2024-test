@@ -331,6 +331,11 @@ export GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME="applications-template"
 # 4) disable "auto devops" pipeline and UI info box
 curl --request PUT --header "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/application/settings?signup_enabled=false&custom_http_clone_url_root=https://gitlab.$BASE_DOMAIN/&user_show_add_ssh_key_message=false&auto_devops_enabled=false"
 
+# Create 'group1'
+# This group is where the backstage bootstrap process will create the "app teams" projects
+# TODO: Rename to something more logical like "projects" or "teamprojects"
+curl -X POST -d '{ "name": "group1", "path": "group1", "visibility": "public" }' -H "Content-Type: application/json" -H "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/groups"
+
 # Create empty template repo for backstage templates
 curl -X POST -d '{"name": "'$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME'", "initialize_with_readme": true, "visibility": "public"}' -H "Content-Type: application/json" -H "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/projects"
 # Create empty template repo for app templates
@@ -349,7 +354,7 @@ git clone https://gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_APP_TEMPLATES_TEMPLATE
 # Copy files from template for backstage templates repo
 # Then replace the placeholders
 # Then commit and push files
-cp -R $FORKED_REPO_NAME/backstagetemplates ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
+cp -R $FORKED_REPO_NAME/backstagetemplates/* ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
 cd ./$GIT_REPO_BACKSTAGE_TEMPLATES_TEMPLATE_NAME
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
@@ -362,7 +367,7 @@ git push https://$GIT_USER:$GIT_PWD@gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_BACK
 
 # Copy files from app template, then replace the placeholders, then commit
 cd
-cp -R $FORKED_REPO_NAME/apptemplates ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
+cp -R $FORKED_REPO_NAME/apptemplates/* ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
 cd ./$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_LIVE_PLACEHOLDER#$DT_TENANT_LIVE#g" {} +
 find . -type f \( -not -path '*/\.*' -not -iname "README.md" \) -exec sed -i "s#DT_TENANT_APPS_PLACEHOLDER#$DT_TENANT_APPS#g" {} +
@@ -374,12 +379,6 @@ git commit -m "initial commit"
 git push https://$GIT_USER:$GIT_PWD@gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_APP_TEMPLATES_TEMPLATE_NAME.git
 # Done creating "backstage template" repo
 # Done creating "applications template" repo
-
-# Create 'group1'
-# This group is where the backstage bootstrap process will create the "app teams" projects
-# TODO: Rename to something more logical like "projects" or "teamprojects"
-curl -X POST -d '{ "name": "group1", "path": "group1", "visibility": "public" }' -H "Content-Type: application/json" -H "PRIVATE-TOKEN: $GL_PAT" "https://gitlab.$BASE_DOMAIN/api/v4/groups"
-
 ```
 
 ## Step 6: Configure Backstage
