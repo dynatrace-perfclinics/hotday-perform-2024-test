@@ -29,6 +29,7 @@ export FORKED_REPO_GITOPS_CLASSROOMID=gitops_dryrun
 export FORKED_TEMPLATE_REPO="https://github.com/$FORKED_GITHUB_ORGNAME/$FORKED_REPO_NAME"
 
 # Clone the template files locally
+cd
 git clone $FORKED_TEMPLATE_REPO
 cd $FORKED_REPO_NAME/$FORKED_REPO_GITOPS_CLASSROOMID
 
@@ -269,6 +270,8 @@ Now its time to tell ArgoCD to install all our platform components. For that we 
 kubectl apply -f $FORKED_REPO_GITOPS_CLASSROOMID/platform.yml
 ```
 
+Expect `argo-config` to be "Degraded" due to the `customer-apps` AppSet. This is fine because we haven't configured Gitlab yet, so it is safe to ignore this error for now.
+
 ## Step 4.1: In case ArgoCD needs the Ingress Controller installed via the Platform we can now log in
 
 We should now definitely be able to login as we also installed our own nginx-ingress controller
@@ -383,17 +386,39 @@ git push https://$GIT_USER:$GIT_PWD@gitlab.$BASE_DOMAIN/$GIT_USER/$GIT_REPO_APP_
 
 ## Step 6: Configure Backstage
 
-When Argo is installed and all the platform apps are installed and happily green, configure a secret for Backstage:
+Configure a secret for Backstage:
 
 This is from the 'alice' user (see [argocd-cm.yml]($FORKED_REPO_GITOPS_CLASSROOMID/manifests/platform/argoconfig/argocd-cm.yml))
 
+The `argocd` CLI utility will be required:
 ```
+# Download the argocd CLI and authenticate
+wget -O argocd https://github.com/argoproj/argo-cd/releases/download/v2.9.3/argocd-linux-amd64
+chmod +x argocd
+sudo mv argocd /usr/bin
+
 # Set the default context to the argocd namespace so 'argocd' CLI works
 kubectl config set-context --current --namespace=argocd
+# Now authenticate
+argocd login argo --core
+
+# Set the default context to the argocd namespace so 'argocd' CLI works
 ARGOCD_TOKEN="argocd.token=$(argocd account generate-token --account alice)"
 # Reset the context to 'default' namespace
 kubectl config set-context --current --namespace=default 
 kubectl -n backstage create secret generic backstage-secrets --from-literal=GITLAB_TOKEN=$GL_PAT --from-literal=ARGOCD_TOKEN=$ARGOCD_TOKEN --from-literal=DT_TENANT_LIVE=$DT_TENANT_LIVE --from-literal=DT_EVENT_INGEST_TOKEN=$DT_NOTIFICATION_TOKEN
+```
+
+`customer-apps` in `argoconfig` is still "degraded". This is an old error. Now that Gitlab is available, it will work. Delete the AppSet now and it will recreate and go green.
+
+### Important: Recycle Argo Application Set Controller
+the Argo ApplicationSet controller seems to stop working even after the link to Gitlab is fixed.
+
+Solve this by restarting the controller:
+
+```
+kubectl -n argocd scale deploy/argocd-applicationset-controller --replicas=0
+kubectl -n argocd scale deploy/argocd-applicationset-controller --replicas=1
 ```
 
 ## Step 7: Recap
@@ -449,3 +474,14 @@ echo "Dynatrace: $DT_TENANT_APPS"
 4. Create the application
 5. Visit argocd / backstage to see your app being deployed
 6. Visit Dynatrace to see everything being deployed
+
+## Troubleshooting
+
+### Argo is slow to create application
+Issue: An app is created in Backstage but is not appearing in Argo
+Workaround: Restart the ApplicationSet controller pod
+
+```
+kubectl -n argocd scale deploy/argocd-applicationset-controller --replicas=0
+kubectl -n argocd scale deploy/argocd-applicationset-controller --replicas=1
+```

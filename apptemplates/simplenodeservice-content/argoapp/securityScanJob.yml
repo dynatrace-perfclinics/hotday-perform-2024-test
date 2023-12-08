@@ -37,6 +37,9 @@ kind: Job
 metadata:
   name: kubeaudit
   namespace: "${{ values.projectName}}-${{ values.teamIdentifier }}-${{ values.releaseStage}}-cd"
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    #argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   template:
     spec:
