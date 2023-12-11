@@ -26,7 +26,7 @@ spec:
         "deploy",
         "--project",
         "configure-platform",
-        "/src/gitops_dryrun/monaco/manifest.yml",
+        "/src/gitops_dryrun_dec11/monaco/manifest.yml",
         "--environment",
         "prod-api-token-only"
       ]

@@ -16,7 +16,7 @@ spec:
       #   values: |
     - repoURL: 'https://github.com/dynatrace-perfclinics/hotday-perform-2024-test.git'
       targetRevision: main
-      path: "gitops_dryrun/manifests/platform/keptn"
+      path: "gitops_dryrun_dec11/manifests/platform/keptn"
   destination:
     namespace: keptn
     server: 'https://kubernetes.default.svc'

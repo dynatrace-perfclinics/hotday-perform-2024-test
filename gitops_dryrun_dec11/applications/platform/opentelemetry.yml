@@ -11,7 +11,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/dynatrace-perfclinics/hotday-perform-2024-test.git'
       targetRevision: main
-      path: "gitops_dryrun/manifests/platform/opentelemetry"
+      path: "gitops_dryrun_dec11/manifests/platform/opentelemetry"
     - repoURL: 'https://open-telemetry.github.io/opentelemetry-helm-charts'
       targetRevision: 0.71.0
       chart: opentelemetry-collector

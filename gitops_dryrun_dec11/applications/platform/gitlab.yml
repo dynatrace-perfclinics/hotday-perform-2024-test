@@ -11,7 +11,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/dynatrace-perfclinics/hotday-perform-2024-test.git'
       targetRevision: main
-      path: "gitops_dryrun/manifests/platform/gitlab"
+      path: "gitops_dryrun_dec11/manifests/platform/gitlab"
     - repoURL: 'https://charts.gitlab.io'
       targetRevision: 7.5.2
       chart: gitlab
