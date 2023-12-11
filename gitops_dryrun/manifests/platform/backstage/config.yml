@@ -58,6 +58,7 @@ data:
           apiBaseUrl: https://gitlab.dtu-test-s17-33fd25.dynatrace.training/api/v4
           token: ${GITLAB_TOKEN}
     catalog:
+      orphanStrategy: delete
       rules:
         - allow: [Component, Template, User, Group]
       import:
