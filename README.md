@@ -320,7 +320,7 @@ export DT_TENANT="abc12345"
 export BASE_DOMAIN="SOMEVALUE.dynatrace.training"
 export DT_TENANT_LIVE="https://$DT_TENANT.sprint.dynatracelabs.com"
 export DT_TENANT_APPS="https://$DT_TENANT.sprint.apps.dynatracelabs.com"
-export DT_GEOLOCATION=GEOLOCATION-XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live
+export DT_GEOLOCATION=GEOLOCATION-XXXXXXX     # eg: GEOLOCATION-DDAA176627F5667A for prod live, GEOLOCATION-3F7C50D0C9065578 for staging
 
 export GIT_USER="root"
 export GIT_PWD="$GL_PAT"
@@ -403,7 +403,7 @@ kubectl config set-context --current --namespace=argocd
 argocd login argo --core
 
 # Set the default context to the argocd namespace so 'argocd' CLI works
-ARGOCD_TOKEN="argocd.token=$(argocd account generate-token --account alice)"
+ARGOCD_TOKEN=$(argocd account generate-token --account alice)
 # Reset the context to 'default' namespace
 kubectl config set-context --current --namespace=default 
 kubectl -n backstage create secret generic backstage-secrets --from-literal=GITLAB_TOKEN=$GL_PAT --from-literal=ARGOCD_TOKEN=$ARGOCD_TOKEN --from-literal=DT_TENANT_LIVE=$DT_TENANT_LIVE --from-literal=DT_EVENT_INGEST_TOKEN=$DT_NOTIFICATION_TOKEN
