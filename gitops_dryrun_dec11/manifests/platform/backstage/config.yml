@@ -127,6 +127,7 @@ data:
               url: ${K8S_URL}
               serviceAccountToken: ${K8S_SA_TOKEN}
               caData: ${K8S_CA_DATA}
+              skipMetricsLookup: true
     proxy:
       endpoints:
         '/dteventingest':
