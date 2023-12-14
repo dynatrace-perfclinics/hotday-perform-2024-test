@@ -118,7 +118,7 @@ data:
     #          #    plural: 'rollouts'
     kubernetes:
       serviceLocatorMethod:
-        type: multiTenant
+        type: singleTenant
       clusterLocatorMethods:
         - type: config
           clusters:
