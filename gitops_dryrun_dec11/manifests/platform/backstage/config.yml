@@ -124,6 +124,7 @@ data:
           clusters:
             - name: hotday-perform-2024-test
               authProvider: 'serviceAccount'
+              url: http://127.0.0.1
     proxy:
       endpoints:
         '/dteventingest':
