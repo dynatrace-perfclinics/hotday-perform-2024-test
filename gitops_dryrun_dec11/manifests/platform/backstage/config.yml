@@ -125,6 +125,7 @@ data:
             - name: hotday-perform-2024-test
               authProvider: 'serviceAccount'
               url: https://E056297A781527653C2CA7ADCA0F7452.gr7.us-west-2.eks.amazonaws.com
+              serviceAccountToken: ${K8S_SA_TOKEN}
     proxy:
       endpoints:
         '/dteventingest':
