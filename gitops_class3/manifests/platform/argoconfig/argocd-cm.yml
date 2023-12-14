@@ -15,4 +15,4 @@ data:
   statusbadge.enabled: "true"
   context: |
     argocdUrl: "https://argo.BASE_DOMAIN_PLACEHOLDER"
-  timeout.reconciliation: 10s 
+  timeout.reconciliation: 10s
