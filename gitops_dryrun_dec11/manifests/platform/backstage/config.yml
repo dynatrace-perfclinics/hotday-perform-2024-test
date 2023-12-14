@@ -121,7 +121,9 @@ data:
         type: multiTenant
       clusterLocatorMethods:
         - type: config
-          clusters: []
+          clusters:
+            - name: hotday-perform-2024-test
+              authProvider: 'serviceAccount'
     proxy:
       endpoints:
         '/dteventingest':
