@@ -16,7 +16,7 @@ environmentGroups:
             name: "monacoToken" 
       # - name: prod-api-and-oauth
       #   url:
-      #     value: "https://vpa60071.sprint.apps.dynatrace.com"
+      #     value: "https://vpa60071.sprint.apps.dynatracelabs.com"
       #   auth:
       #     token:
       #       name: "monacoToken"
