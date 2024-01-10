@@ -116,12 +116,12 @@ data:
     #          #  - group: 'argoproj.io'
     #          #    apiVersion: 'v1alpha1'
     #          #    plural: 'rollouts'
-    kubernetes:
-      serviceLocatorMethod:
-        type: multiTenant
-      clusterLocatorMethods:
-        - type: config
-          clusters: []
+    # kubernetes:
+    #   serviceLocatorMethod:
+    #     type: multiTenant
+    #   clusterLocatorMethods:
+    #     - type: config
+    #       clusters: []
     proxy:
       endpoints:
         '/dteventingest':
@@ -130,3 +130,11 @@ data:
           headers:
             Content-Type: "application/json; charset=utf-8"
             Authorization: "Api-Token ${DT_EVENT_INGEST_TOKEN}"
+    dynatrace:
+      environments:
+        - name: vpa60071
+          url: https://vpa60071.sprint.apps.dynatracelabs.com
+          tokenUrl: https://sso-sprint.dynatracelabs.com/sso/oauth2/token
+          accountUrn: ${DT_ACCOUNT_URN}
+          clientId: ${DT_CLIENT_ID}
+          clientSecret: ${DT_CLIENT_SECRET}
