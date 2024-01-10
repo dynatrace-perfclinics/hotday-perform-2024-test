@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: backstage
+        backstage.io/component: default.backstage-local
     spec:
       containers:
         - name: backstage
