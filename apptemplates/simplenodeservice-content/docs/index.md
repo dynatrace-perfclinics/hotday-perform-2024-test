@@ -1,6 +1,4 @@
-# Docs for ${{ values.projectName }} in environment $${{ values.releaseStage }}
-
-![](https://argo.BASE_DOMAIN_PLACEHOLDER/api/badge?name=${{ values.projectName }}-${{ values.teamIdentifier }}-${{ values.releaseStage }}-cd)
+# Docs for ${{ values.projectName }} in environment ${{ values.releaseStage }}
 
 Managed by: ${{ values.teamIdentifier }}
 Environment: ${{ values.releaseStage }}
