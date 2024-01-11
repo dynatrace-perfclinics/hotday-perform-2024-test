@@ -139,4 +139,7 @@ data:
           clientSecret: ${DT_CLIENT_SECRET}
       queries:
       - id: events
-        query: fetch logs | limit 10
+        query: >
+          fetch events 
+          | filter event.kind == "DAVIS_EVENT" 
+          | fields event.kind, timestamp
