@@ -139,4 +139,4 @@ data:
           clientSecret: ${DT_CLIENT_SECRET}
       queries:
       - id: events
-        query: "fetch logs | filter k8s.namespace.name == \"${componentNamespace}\" | sort timestamp, direction:\"descending\" | limit 10"
+        query: fetch logs | limit 10
