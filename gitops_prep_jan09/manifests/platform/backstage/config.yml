@@ -140,6 +140,7 @@ data:
       queries:
       - id: events
         query: >
-          fetch events 
-          | filter event.kind == "DAVIS_EVENT" 
-          | fields event.kind, timestamp
+          fetch logs
+          | filter k8s.namespace.name == "${componentName}"
+          | sort timestamp, direction:"descending"
+          | limit 10
