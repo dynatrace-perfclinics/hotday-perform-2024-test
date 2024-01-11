@@ -141,6 +141,6 @@ data:
       - id: events
         query: >
           fetch logs
-          | filter k8s.namespace.name == "simplenodeservice-team99-preprod"
+          | filter contains(k8s.namespace.name, "simplenodeservice-team99-preprod")
           | sort timestamp, direction:"descending"
           | limit 10
