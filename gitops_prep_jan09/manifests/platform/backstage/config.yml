@@ -137,3 +137,10 @@ data:
           accountUrn: ${DT_ACCOUNT_URN}
           clientId: ${DT_CLIENT_ID}
           clientSecret: ${DT_CLIENT_SECRET}
+      queries:
+      - id: events
+        query: >
+          fetch logs
+          | filter contains(k8s.namespace.name, "simplenodeservice-team99-preprod")
+          | sort timestamp, direction:"descending"
+          | limit 10
