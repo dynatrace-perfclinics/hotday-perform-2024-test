@@ -138,7 +138,7 @@ data:
           clientId: ${DT_CLIENT_ID}
           clientSecret: ${DT_CLIENT_SECRET}
       queries:
-      - id: events
+      - id: logs
         query: >
           fetch logs
           | filter contains(k8s.namespace.name, "$${componentName}")
@@ -146,3 +146,11 @@ data:
           | fields timestamp, content 
           | sort timestamp
           | limit 10
+      - id: validations
+        query: >
+          fetch bizevents
+          | filter event.type == "guardian.validation.finished"
+          | parse execution_context, "JSON:context"
+          | filter contains(context[component_name], "$${componentName}")
+          | sort timestamp desc
+          | fields timestamp, name=guardian.name, buildId=context[buildId], status=validation.status, executionId=validation.workflow.execution.id
