@@ -131,8 +131,8 @@ data:
             Authorization: "Api-Token ${DT_EVENT_INGEST_TOKEN}"
     dynatrace:
       environments:
-        - name: vpa60071
-          url: https://vpa60071.sprint.apps.dynatracelabs.com
+        - name: ${DT_TENANT_NAME}
+          url: ${DT_TENANT_APPS}
           tokenUrl: https://sso-sprint.dynatracelabs.com/sso/oauth2/token
           accountUrn: ${DT_ACCOUNT_URN}
           clientId: ${DT_CLIENT_ID}
