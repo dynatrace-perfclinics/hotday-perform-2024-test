@@ -144,7 +144,7 @@ data:
           | filter contains(k8s.namespace.name, "$${componentName}")
           | filter content != " "
           | fields timestamp, content 
-          | sort timestamp
+          | sort timestamp desc
           | limit 10
       - id: validations
         query: >
