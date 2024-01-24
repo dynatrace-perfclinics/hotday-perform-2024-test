@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: 'https://github.com/dynatrace-perfclinics/hotday-perform-2024-test.git'
     targetRevision: main
-    path: "gitops_prep_jan09/manifests/platform/backstage"
+    path: "gitops_prep_jan24/manifests/platform/backstage"
   destination:
     namespace: backstage
     server: 'https://kubernetes.default.svc'

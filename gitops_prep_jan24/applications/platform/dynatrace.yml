@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: 'https://github.com/dynatrace-perfclinics/hotday-perform-2024-test.git'
     targetRevision: main
-    path: "gitops_prep_jan09/manifests/platform/dynatrace"
+    path: "gitops_prep_jan24/manifests/platform/dynatrace"
   destination:
     namespace: dynatrace
     server: 'https://kubernetes.default.svc'

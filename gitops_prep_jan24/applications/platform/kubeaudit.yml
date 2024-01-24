@@ -11,7 +11,7 @@ spec:
   sources:
     - repoURL: 'https://github.com/dynatrace-perfclinics/hotday-perform-2024-test.git'
       targetRevision: main
-      path: "gitops_prep_jan09/manifests/platform/kubeaudit"
+      path: "gitops_prep_jan24/manifests/platform/kubeaudit"
   destination:
     namespace: kubeaudit
     server: 'https://kubernetes.default.svc'
