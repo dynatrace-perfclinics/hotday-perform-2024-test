@@ -65,7 +65,7 @@ spec:
             #    string: "http://otel-collector.opentelemetry.svc.cluster.local:4318"
             #    urlTemplate: "https://gitlab.dtulab715997080.dynatrace.training/{{ service }}/{{ correlation_id  }}"
             hosts:
-              https: true
+              https: false
               domain: dtulab715997080.dynatrace.training
               nginx-ingress:
                 enabled: false
