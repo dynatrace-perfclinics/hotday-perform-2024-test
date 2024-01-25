@@ -13,7 +13,7 @@ spec:
       targetRevision: main
       path: "gitops_prep_jan24/manifests/platform/gitlab"
     - repoURL: 'https://charts.gitlab.io'
-      targetRevision: 7.5.7  # downgrade from 7.7.2
+      targetRevision: 7.7.2
       chart: gitlab
       helm:
         values: |
