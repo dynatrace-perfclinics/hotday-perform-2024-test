@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
   rules:
-    - host: argo.dtulabPLACEHOLDERCLASS2.dynatrace.training
+    - host: argo.dtulab716272684.dynatrace.training
       http:
         paths:
           - path: /

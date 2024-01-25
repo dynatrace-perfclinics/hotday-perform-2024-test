@@ -3,7 +3,7 @@ configs:
   config:
     name: "gitlab | platform | healthcheck"
     parameters:
-      baseUrl: "https://gitlab.dtulabPLACEHOLDERCLASS1.dynatrace.training"
+      baseUrl: "https://gitlab.dtulab716266032.dynatrace.training"
       frequencyMin: "1"
       enabled: "true"
       geoLocation: "GEOLOCATION-3F7C50D0C9065578"
@@ -18,7 +18,7 @@ configs:
   config:
     name: "backstage | platform | healthcheck"
     parameters:
-      baseUrl: "https://backstage.dtulabPLACEHOLDERCLASS1.dynatrace.training"
+      baseUrl: "https://backstage.dtulab716266032.dynatrace.training"
       frequencyMin: "1"
       enabled: "true"
       geoLocation: "GEOLOCATION-3F7C50D0C9065578"
@@ -33,7 +33,7 @@ configs:
   config:
     name: "argo | platform | healthcheck"
     parameters:
-      baseUrl: "https://argo.dtulabPLACEHOLDERCLASS1.dynatrace.training"
+      baseUrl: "https://argo.dtulab716266032.dynatrace.training"
       frequencyMin: "1"
       enabled: "true"
       geoLocation: "GEOLOCATION-3F7C50D0C9065578"
@@ -48,7 +48,7 @@ configs:
   config:
     name: "argo workflows | platform | healthcheck"
     parameters:
-      baseUrl: "https://workflows.dtulabPLACEHOLDERCLASS1.dynatrace.training"
+      baseUrl: "https://workflows.dtulab716266032.dynatrace.training"
       frequencyMin: "1"
       enabled: "true"
       geoLocation: "GEOLOCATION-3F7C50D0C9065578"
