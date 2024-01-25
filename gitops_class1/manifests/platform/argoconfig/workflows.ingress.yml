@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
   rules:
-    - host: workflows.dtulab716266032.dynatrace.training
+    - host: workflows.dtulab716800245.dynatrace.training
       http:
         paths:
           - path: /
