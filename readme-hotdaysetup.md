@@ -11,6 +11,7 @@ Hence we have to create a new folder and replace some PLACEHOLDERs
 - DT_TENANT_LIVE_PLACEHOLDER with the dynatrace live domain name, e.g: abc12345.sprint.dynatracelabs.com
 - FORKED_REPO_GITOPS_CLASSROOMID_PLACEHOLDER with the classroom name you used for the gitops directory, e.g: gitops_hotday_uk
 - FORKED_TEMPLATE_REPO_PLACEHOLDER with the URL of this repo, e.g: https://github.com/dynatrace-perfclinics/hotday-perform-2024-test
+- GEOLOCATION_PLACEHOLDER with the correct GEO Location, e.g: GEOLOCATION-3F7C50D0C9065578
 3: Commit the new directory back to this github repository
 
 ## 2: Create the platform using the DT University Bastion Host
@@ -19,4 +20,5 @@ Every HOTDAY has its own bastion host that is already connected with the K8s clu
 
 1: Login to your DT University bastion host
 2: sudo vi /etc/environment --> validate that all values are correct and CHANGE FORKED_REPO_GITOPS_CLASSROOMID to your *CLASSROOM_ID*, e.g: gitops_hotday_uk
-3: 
+3: now run ./deploy-steps-1-5.sh and wait until that is done
+
