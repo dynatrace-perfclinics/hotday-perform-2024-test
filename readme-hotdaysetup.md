@@ -35,3 +35,9 @@ Once its done you can run: ./printenvdetails.sh
 Now run ./deploy-step-6.sh
 
 ## 5: Finish Dynatrace Configuration
+
+Couple of things in Dynatrace
+1: Make sure new K8s Experience is enabled!
+2: Import the Notebooks and Dashboards for the HOTDAY and share them with all attendees from /dynatraceassets
+3: Edit the links in the HOTDAY Notebook to show the correct logins
+4: Import the Lifecycle Automation Workflow, give it all needed priviliges and edit the endpoint for sending messages to Backstage!
