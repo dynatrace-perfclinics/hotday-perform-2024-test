@@ -22,3 +22,16 @@ Every HOTDAY has its own bastion host that is already connected with the K8s clu
 2: sudo vi /etc/environment --> validate that all values are correct and CHANGE FORKED_REPO_GITOPS_CLASSROOMID to your *CLASSROOM_ID*, e.g: gitops_hotday_uk
 3: now run ./deploy-steps-1-5.sh and wait until that is done
 
+Once its done you can run: ./printenvdetails.sh
+
+## 3: Create PAT for GitLab
+
+1. open your GitLab UI and navigaet to the Personal Access Token Page
+2. Create a new token with api, read_repository and write_repository
+3. take this PAT value and specify it in /etc/environment in GL_PAT
+
+## 4: Finish Platform Installation with step-6
+
+Now run ./deploy-step-6.sh
+
+## 5: Finish Dynatrace Configuration
