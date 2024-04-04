@@ -27,13 +27,13 @@ Every HOTDAY has its own bastion host that is already connected with the K8s clu
 
 1: Login to your DT University bastion host
 2: sudo vi /etc/environment --> validate that all values are correct and CHANGE FORKED_REPO_GITOPS_CLASSROOMID to your *CLASSROOM_ID*, e.g: gitops_emea_uk
-3: now run ./deploy-steps-1-5.sh and wait until that is done
+3: now run ./deploy-steps-1-5.sh and wait until ArgoCD and GitLab is up and Running!
 
 Once its done you can run: ./printenvdetails.sh
 
 ## 3: Create PAT for GitLab
 
-1. open your GitLab UI and navigaet to the Personal Access Token Page
+1. open your GitLab UI and navigaet to the Personal Access Token Page --> https://gitlab.dtulabxxxxxxxxx.dynatrace.training/-/user_settings/personal_access_tokens
 2. Create a new token with api, read_repository and write_repository
 3. take this PAT value and specify it in /etc/environment in GL_PAT
 
@@ -41,11 +41,15 @@ Once its done you can run: ./printenvdetails.sh
 
 Now run ./deploy-step-6.sh
 
-## 5: Finish Dynatrace Configuration
+## 5: Restart ArgoCD App Set Controller
+
+kubectl delete pod -n argocd argocd-applicationset-controller-xxxxxxxxxxxxx
+
+## 6: Finish Dynatrace Configuration
 
 Couple of things in Dynatrace
 1: Make sure new K8s Experience is enabled, that K8s monitoring includes events & prometheus and that AppSec Vulnerability Detection is Enabled!
 2: Import the Notebooks and Dashboards for the HOTDAY and share them with all attendees from /dynatraceassets
 3: Edit the links in the HOTDAY Notebook to show the correct logins
-4: Import the Lifecycle Automation Workflow, give it all needed priviliges and edit the endpoint for sending messages to Backstage!
+4: Import the Lifecycle Automation Workflow, give it all needed priviliges, make it public and edit the endpoint for sending messages to Backstage!
 5: Add the backstage domain to the allow list for outgoing notification calls!
