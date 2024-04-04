@@ -5,7 +5,7 @@ metadata:
   namespace: keptn
 spec:
   type: dynatrace
-  targetServer: "https://sji63539.sprint.dynatracelabs.com"
+  targetServer: "https://zll64452.sprint.dynatracelabs.com"
   secretKeyRef:
     name: dt-metrics-read-token
     key: DT_TOKEN

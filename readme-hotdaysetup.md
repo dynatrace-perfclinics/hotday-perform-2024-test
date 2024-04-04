@@ -2,6 +2,7 @@
 
 Infos on regional HOTDAYS and their domains
 || Location || domain || classroom_id || 
+| Dry Run (Apr 4) | dtulab462102617 | gitops_dryrun_hot_emea |
 | Maidenhead |  dtulab446565966 | gitops_emea_uk |
 | Utrecht | dtulab447946107 | gitops_emea_nl |
 | Frankfurt | dtulab454101030 | gitops_emea_de |
