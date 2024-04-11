@@ -3,7 +3,7 @@
 Infos on regional HOTDAYS and their domains
 || Location || domain || classroom_id || 
 | Dry Run (Apr 4) | dtulab462102617 | gitops_dryrun_hot_emea |
-| Maidenhead |  dtulab446565966 | gitops_emea_uk |
+| Maidenhead |  dtulab446565966 | gitops_emea_uk | https://blx54279.sprint.dynatracelabs.com
 | Utrecht | dtulab447946107 | gitops_emea_nl |
 | Frankfurt | dtulab454101030 | gitops_emea_de |
 
@@ -15,7 +15,7 @@ Hence we have to create a new folder and replace some PLACEHOLDERs
 1: Create a copy of the gitops directories and give it a meaningful *CLASSROOM_ID*, e.g: gitops_emea_uk
 2: replace the following placeholders:
 - BASE_DOMAIN_PLACEHOLDER with the hotday domain, e.g: https://dtulab1234567890.dynatrace.training
-- DT_TENANT_LIVE_PLACEHOLDER with the dynatrace live domain name, e.g: abc12345.sprint.dynatracelabs.com
+- DT_TENANT_LIVE_PLACEHOLDER with the dynatrace live domain name, e.g: https://abc12345.sprint.dynatracelabs.com
 - FORKED_REPO_GITOPS_CLASSROOMID_PLACEHOLDER with the classroom name you used for the gitops directory, e.g: gitops_emea_uk
 - FORKED_TEMPLATE_REPO_PLACEHOLDER with the URL of this repo, e.g: https://github.com/dynatrace-perfclinics/hotday-perform-2024-test
 - GEOLOCATION_PLACEHOLDER with the correct GEO Location, e.g: GEOLOCATION-3F7C50D0C9065578
