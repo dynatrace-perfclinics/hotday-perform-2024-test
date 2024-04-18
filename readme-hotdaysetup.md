@@ -6,6 +6,7 @@ Infos on regional HOTDAYS and their domains
 | Maidenhead |  dtulab446565966 | gitops_emea_uk | https://blx54279.sprint.dynatracelabs.com
 | Utrecht | dtulab447946107 | gitops_emea_nl |
 | Frankfurt | dtulab454101030 | gitops_emea_de |
+| Rome (ITR10) | dtulab448873578 | gitops_emea_itr |
 
 ## 1: Create the new GitOps Platform Definition in this Git Repo
 
