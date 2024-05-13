@@ -7,6 +7,8 @@ Infos on regional HOTDAYS and their domains
 | Utrecht | dtulab447946107 | gitops_emea_nl | https://mri62027.sprint.dynatracelabs.com
 | Frankfurt | dtulab454101030 | gitops_emea_de |
 | Rome (ITR10) | dtulab448873578 | gitops_emea_itr |
+| Milan (ITM10) | dtulab454214228 | gitops_emea_itm | https://wmx38314.sprint.apps.dynatracelabs.com
+
 
 ## 1: Create the new GitOps Platform Definition in this Git Repo
 
@@ -26,9 +28,9 @@ Hence we have to create a new folder and replace some PLACEHOLDERs
 
 Every HOTDAY has its own bastion host that is already connected with the K8s cluster as well as has all environment variables set correct.y
 
-1: Login to your DT University bastion host
-2: sudo vi /etc/environment --> validate that all values are correct and CHANGE FORKED_REPO_GITOPS_CLASSROOMID to your *CLASSROOM_ID*, e.g: gitops_emea_uk
-3: now run ./deploy-steps-1-5.sh and wait until ArgoCD and GitLab is up and Running!
+1. Login to your DT University bastion host
+2. sudo vi /etc/environment --> validate that all values are correct and CHANGE FORKED_REPO_GITOPS_CLASSROOMID to your *CLASSROOM_ID*, e.g: gitops_emea_uk
+3. now run ./deploy-steps-1-5.sh and wait until ArgoCD and GitLab is up and Running!
 
 Once its done you can run: ./printenvdetails.sh
 
