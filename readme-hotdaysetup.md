@@ -51,8 +51,8 @@ kubectl delete pod -n argocd argocd-applicationset-controller-xxxxxxxxxxxxx
 ## 6: Finish Dynatrace Configuration
 
 Couple of things in Dynatrace
-1: Make sure new K8s Experience is enabled, that K8s monitoring includes events & prometheus and that AppSec Vulnerability Detection is Enabled!
-2: Import the Notebooks and Dashboards for the HOTDAY and share them with all attendees from /dynatraceassets
-3: Edit the links in the HOTDAY Notebook to show the correct logins
-4: Import the Lifecycle Automation Workflow, give it all needed priviliges, make it public and edit the endpoint for sending messages to Backstage!
-5: Add the backstage domain to the allow list for outgoing notification calls!
+1. Make sure new K8s Experience is enabled, that K8s monitoring includes events & prometheus and that AppSec Vulnerability Detection is Enabled!
+2. Import the Notebooks and Dashboards for the HOTDAY and share them with all attendees from /dynatraceassets
+3. Edit the links in the HOTDAY Notebook to show the correct logins
+4. Import the Lifecycle Automation Workflow, give it all needed priviliges, make it public and edit the endpoint for sending messages to Backstage!
+5. Add the backstage domain to the allow list for outgoing notification calls!
