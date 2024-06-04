@@ -8,6 +8,7 @@ Infos on regional HOTDAYS and their domains
 | Frankfurt | dtulab454101030 | gitops_emea_de |
 | Rome (ITR10) | dtulab448873578 | gitops_emea_itr |
 | Milan (ITM10) | dtulab454214228 | gitops_emea_itm | https://wmx38314.sprint.apps.dynatracelabs.com
+| Frankfurt (DE10) | dtulab454101030 | gitops_emea_de | https://fxx53686.sprint.apps.dynatracelabs.com
 
 
 ## 1: Create the new GitOps Platform Definition in this Git Repo
