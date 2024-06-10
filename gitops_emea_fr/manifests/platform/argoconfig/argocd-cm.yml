@@ -14,5 +14,5 @@ data:
   # Enables application status badge feature
   statusbadge.enabled: "true"
   context: |
-    argocdUrl: "https://argo.BASE_DOMAIN_PLACEHOLDER"
+    argocdUrl: "https://argo.dtulab455964820.dynatrace.training"
   timeout.reconciliation: 10s

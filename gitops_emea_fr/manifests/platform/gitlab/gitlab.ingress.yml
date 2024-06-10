@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
   rules:
-    - host: gitlab.BASE_DOMAIN_PLACEHOLDER
+    - host: gitlab.dtulab455964820.dynatrace.training
       http:
         paths:
           - path: /

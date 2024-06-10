@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
   rules:
-    - host: argo.BASE_DOMAIN_PLACEHOLDER
+    - host: argo.dtulab455964820.dynatrace.training
       http:
         paths:
           - path: /
