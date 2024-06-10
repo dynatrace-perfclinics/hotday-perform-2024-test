@@ -10,7 +10,7 @@ environmentGroups:
         # .live. when using API token only
         # .apps. when using API + oAuth or just oAuth
         url:
-          value: "https://dsf57140.sprint.apps.dynatracelabs.com"
+          value: "https://dsf57140.sprint.dynatracelabs.com"
         auth:
           token:
             name: "monacoToken" 
